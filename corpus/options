@@ -1,6 +1,8 @@
-data=/afs/.ir.stanford.edu/users/m/c/azaitsu/projects/my-project/corpus/data/
-results=/afs/.ir.stanford.edu/users/m/c/azaitsu/projects/my-project/corpus/results/
+data=/afs/.ir.stanford.edu/users/a/z/azaitsu/projects/my-project/corpus/data/
+results=/afs/.ir.stanford.edu/users/a/z/azaitsu/projects/my-project/corpus/results/
 
 init ID
 
-
+add StringVar Sentence
+add CategoricalVar Trace=adjunct:AdjunctTrace,object:ObjectTrace,neither:NotObjectTrace
+add ParseVar SentenceParse
