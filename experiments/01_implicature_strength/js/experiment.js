@@ -111,6 +111,10 @@ function make_slides(f) {
 
       // unselect all radio buttons at the beginning of each trial
       // (by default, the selection of the radio persists across trials)
+      var contexthtml = this.format_context(generic.PreceedingContext);
+      var entirehtml = "<font color=#FF0000> " + this.format_sentence(generic.Matrix) + " <b>" + this.format_sentence(generic.Question) + "</b>"
+
+
       $("input[name='number']:checked").prop("checked", false);
       $("#check-strange").prop("checked", false);
 

@@ -36,7 +36,8 @@
     <!-- initial slide -->
     <div class="slide" id="i0">
       <p class="left">
-        You will read some sentences. These are sentneces from transcriptions of real conversations real poeple had over the phone. <strong>Your task is to answer a question about the red sentence to the best of your ability.</strong><br>
+        You will read short conversations. These are transcriptions of real conversations
+        real people had over the phone. The last sentence of each conversation will be marked in red. <strong>Your task is to answer a question about the red sentence to the best of your ability. </strong><br>
         <br>
         The experiment will take approximately 10 minutes. Let's start with two examples!
       </p><button id="start_button" type="button">Start experiment</button>
@@ -56,18 +57,21 @@
         Example 1
       </h3>
       <p class="originalSen">
-        I had some of the banana yogurt.
+
+        I know who to talk to.
       </p>
       <p class="targetSen">
-        I had <b>some, but not all</b> of the banana yogurt
+        I know who I <b>should</b> talk to.<br>
+        I know who I <b>could</b> talk to.
+
       </p>
       <div class="instruction">
-        <i>How similar is the statement in blue (with 'but not all') to the statement in red (without 'but not all')?</i>
+        <i>Which sentence in blue best expresses the meaning of the sentence in red? If both sentences in blue seem like possible meanings, choose a number in the middle of the scale.</i>
       </div>
       <table class="likertscale">
         <tr>
           <td>
-            very different meaning
+            could
           </td>
           <td>
             <input type="radio" name="number" value="1">
@@ -91,7 +95,7 @@
             <input type="radio" name="number" value="7">
           </td>
           <td>
-            same meaning
+            should
           </td>
         </tr>
         <tr>
@@ -126,7 +130,7 @@
       </div>
       <div class="err">
         <p>
-          In your rating, consider whether the sentence 'some, but not all' expresses the same thing as the red sentence. In this example the two sentences are very similar.
+          In your rating, consider whether the sentence with 'should' or 'could' expresses the same thing as the red sentence. If both sentences seem like possible paraphrases of the sentence in red, choose a number in the middle of the scale.
         </p>
       </div>
     </div>
@@ -137,18 +141,19 @@
         Example 2
       </h3>
       <p class="originalSen">
-        There's probably some peanuts in the pantry.
+        I know where to get gas.
       </p>
       <p class="targetSen">
-        There's probably <b>some, but not all</b> peanuts in the pantry.
+        I know where I could get gas.<br> 
+        I know where I should get gas. 
       </p>
       <div class="instruction">
-        <i>How similar is the statement in blue (with 'but not all') to the statement in red (without 'but not all')?</i>
+        <i>Which sentence in blue best expresses the meaning of the sentence in red? If both sentences in blue seem like possible meanings, choose a number in the middle of the scale.</i>
       </div>
       <table class="likertscale">
         <tr>
           <td>
-            very different meaning
+            could
           </td>
           <td>
             <input type="radio" name="number" value="1">
@@ -172,7 +177,7 @@
             <input type="radio" name="number" value="7">
           </td>
           <td>
-            same meaning
+            should
           </td>
         </tr>
         <tr>
@@ -208,7 +213,7 @@
       <div class="err">
         <br>
         <p>
-          In your rating, consider whether the sentence 'some, but not all' expresses the same thing as the red sentence. In this example the two sentences are very different.
+          In your rating, consider whether the sentence with 'should' or 'could' best expresses the meaning of the red sentence. If both sentences in blue seem like a possible meaning for the sentence in red, choose a number in the middle of the scale.
         </p>
       </div>
     </div>
@@ -218,8 +223,7 @@
       <br>
       <br>
       <p id="instruct-text" class="left">
-        Great! Now we can start the real experiment. You will now read 20 sentences. Your task is to rate how similar the red sentence is to the blue sentence where the word 'some' is replaced with 'some, but not all'. Sometimes, the blue sentence will sound strange. In this case, give a rating to the best of your ability, but also click the checkbox next to "The blue sentence sounds strange".
-      </p>
+        Great! Now we can start the real experiment. You will now read 20 sentences. Your task is to rate whether the blue sentence with 'could' or 'should' best expresses the meaning of the sentence in red. The sentence in red will be preceded by 5 lines of dialogue that provide context. When choosing which blue sentence best expresses the meaning in red, you should consider it in the context provided. 
       <div class="center">
         <button class="continueButton" onclick="_s.button()">Continue</button>
       </div>
@@ -239,12 +243,12 @@
         {{target sentence}}
       </p>
       <div class="instruction">
-        <i>How similar is the statement in blue (with 'but not all') to the statement in red (without 'but not all')?</i>
+        <i>Which sentence in blue best expresses the meaning of the sentence in red? If both sentences in blue seem like possible meanings, choose a number in the middle of the scale.</i>
       </div>
       <table class="likertscale">
         <tr>
           <td>
-            very different meaning
+            could
           </td>
           <td>
             <input type="radio" name="number" value="1">
@@ -268,7 +272,7 @@
             <input type="radio" name="number" value="7">
           </td>
           <td>
-            same meaning
+            should
           </td>
         </tr>
         <tr>
@@ -298,7 +302,6 @@
         </tr>
       </table><br>
       <br>
-      The blue sentence sounds strange: <input type="checkbox" id="check-strange"><br>
       <br>
       <div class="center">
         <button class="continueButton" onclick="_s.button()">Continue</button>

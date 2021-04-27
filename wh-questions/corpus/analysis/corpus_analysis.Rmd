@@ -1,15 +1,16 @@
 ---
 title: "Analysis of wh-questions"
-author: "mcmoyer"
+author: "azaitsu"
 date: "October 22, 2020"
 output: html_document
 ---
   
 ```{r}  
 library(ggplot2)
-library(tidyr)
-library(dplyr)
-library(lme4)
+library(stringr)
+library(textstem)
+library(tidyverse)
+
 # theme_set(theme_bw())
 
 this.dir <- dirname(rstudioapi::getSourceEditorContext()$path)
@@ -20,7 +21,107 @@ source("../../analysis/helpers.R")
 Read the database into R and explore it.
 ```{r}
 d = read.table("../results/swbd.tab",sep="\t",header=T,quote="")
+```
 
+```{r, look into all the nonfinite questions}
+
+df_nonfinite <- d %>%
+  filter(Finite == "no")
+nrow(df_nonfinite)/nrow(d)*100
+View(df_nonfinite[,c("Item_ID","Sentence")])
+
+str(df_nonfinite$QuestionType)
+
+table(df_nonfinite$QuestionType)
+
+
+df_nonfin_emb = d %>%
+  filter((QuestionType == "embedded") & (Finite == "no"))
+# this gives you the number of rows
+nrow(df_nonfin_emb)
+
+# this gives you the number of columns...
+# a measure for the vector of column names
+length(df_nonfin_emb)
+names(df_nonfin_emb)
+
+# there are 5 unique levels of the wh column
+length(unique(df_nonfin_emb$Wh))
+
+table(df_nonfin_emb$Wh)
+
+  # how  what  when where   who 
+  # 100    26     1     5     3 
+
+View(df_nonfin_emb["Sentence"])
+# 135/30 = 4.5
+# 4 lists of 30
+# 1 list of 15
+# OR
+# 5 lists of 20
+# 1 lists of 35
+
+# Double check that there are no complex WH that are nonfinite
+df_which = d %>%
+  filter((WhPhaseType == "complex") & (QuestionType == "embedded") & (Finite != "yes"))
+
+nrow(df_which)
+
+View(df_which["Sentence"])
+
+```
+
+```{r, bring in the embedded verb}
+table(df_nonfin_emb$)
+
+
+# Make a single matrix verb column
+df_nonfin_emb = df_nonfin_emb %>%
+  unite("MatrixVerb", c("MatrixPredVerb", "MatrixPredOther", "MatrixPredParticle"), na.rm = TRUE, sep = " ", remove = FALSE) %>%
+  # Remove leading and trailing whitespace
+  mutate(MatrixVerb = str_trim(MatrixVerb))
+
+# replace the empty values in MatrixVerb with the value for Aux verb column
+df_nonfin_emb$MatrixVerb = ifelse(df_nonfin_emb$MatrixVerb=="",df_nonfin_emb$MatrixPredAux,df_nonfin_emb$MatrixVerb)
+
+# Lemmatize the MatrixVerb column
+df_nonfin_emb$VerbLemma = lemmatize_words(df_nonfin_emb$MatrixVerb)
+
+```
+
+```{r play around with verbs}
+table(df_nonfin_emb$VerbLemma,df_nonfin_emb$Wh)
+
+# get the frequency of the matrix verbs
+verb_counts = df_nonfin_emb %>%
+  group_by(VerbLemma) %>%
+  summarize(count = n()) %>%
+  View()
+
+# look at a particular case
+verb = df_nonfin_emb %>%
+  filter(VerbLemma == "penetrate")
+# View only a subset of the columns
+View(verb[,c("Sentence","VerbLemma","Question")])
+
+vs = subset(df_nonfin_emb, df_nonfin_emb$VerbLemma == "know")
+vf = filter(df_nonfin_emb, df_nonfin_emb$VerbLemma == "know")
+View(vf)
+```
+
+
+```{r, Bring the context in}
+contexts = read.csv("swbd_contexts.csv")
+head(contexts)
+# subset to the relevant contexts
+contexts_nf = contexts %>%
+  filter(TGrepID %in% df_nonfin_emb$Item_ID)
+
+
+```
+
+### Scratch
+```{r, Scratch}
 # Load in the .csv with the contexts removed
 # d = read.csv("swbd_nocntxt.csv",header=T)
 View(d)
