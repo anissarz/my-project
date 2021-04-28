@@ -74,40 +74,109 @@ function make_slides(f) {
     },
   });
 
+
+// 
   slides.example1 = slide({
     name: "example1",
 
     start: function () {
+      // hide error message 
       $(".err").hide();
-      $(".err_answer").hide();
-
-      var contexthtml = "<b>Speaker #1</b>: We need to promote this fundraiser as widely as possible. Do you have a list of the people involved in helping with outreach? <br> <b>Speaker #2 </b>: Yes, here it is. <br> <b>Speaker #1 </b>: "
-      var entirehtml = "Great. " + "<font color=#FF0000> " + "I wonder <b>who can help spread the word</b>."
-      contexthtml = contexthtml + entirehtml
-
-
-      $(".context").html(contexthtml)
-    };
-
-    log_responses: function () {
-      for (var i = 0; i < 3; i++) {
-        exp.data_trials.push({
-          "slide_number_in_experiment": exp.phase,
-          "tgrep_id": "example1",
-          "paraphrase": exp.paraphraseArray[i].name,
-          "rating": $("#slider1_" + (i + 1)).slider("option", "value"),
-          "order": exp.paraphraseArray[0].name + "-" + exp.paraphraseArray[1].name + "-" + exp.paraphraseArray[2].name,
-        });
+    },
+    
+    // this is executed when the participant clicks the "Continue button"
+    button: function() {
+      // read in the value of the selected radio button
+      this.radio = $("input[name='number']:checked").val();
+      // check whether the participant selected a reasonable value (i.e, 5, 6, or 7)
+      if (this.radio == "5" || this.radio == "6" || this.radio == "7") {
+        // log response
+        this.log_responses();
+        // continue to next slide
+        exp.go();
+      } else {
+        // participant gave non-reasonable response --> show error message
+        $('.err').show();
+        this.log_responses();
       }
+    },
+
+
+    // handle click on "Continue" button no correction
+    // button: function() {
+    //   this.radio = $("input[name='number']:checked").val();
+    //   this.strange = $("#check-strange:checked").val() === undefined ? 0 : 1;
+    //   if (this.radio) {
+    //     this.log_responses();
+    //     exp.go(); //use exp.go() if and only if there is no "present"ed data, ie no list of stimuli.
+    //     // _stream.apply(this); //use _stream.apply(this) if there is a list of "present" stimuli to rotate through
+    //   } else {
+    //     $('.err').show();
+    //   }
+    // },
+
+    // save response
+    log_responses: function() {
       exp.data_trials.push({
-        "slide_number_in_experiment": exp.phase,
         "tgrep_id": "example1",
-        "paraphrase": "other",
-        "rating": $("#slider1_4").slider("option", "value"),
-        "order": exp.paraphraseArray[0].name + "-" + exp.paraphraseArray[1].name + "-" + exp.paraphraseArray[2].name,
+        "slide_number_in_experiment": exp.phase, //exp.phase is a built-in trial number tracker
+        "response": this.radio,
+        "strangeSentence": this.strange,
+        "sentence": "",
       });
-    } // end log_responses
+    } // end log responses
   }); //end slide example 1
+
+  slides.example2 = slide({
+    name: "example2",
+
+    start: function () {
+      // hide error message 
+      $(".err").hide();
+    },
+    
+    // this is executed when the participant clicks the "Continue button"
+    button: function() {
+      // read in the value of the selected radio button
+      this.radio = $("input[name='number']:checked").val();
+      // check whether the participant selected a reasonable value (i.e, 5, 6, or 7)
+      if (this.radio == "1" || this.radio == "2" || this.radio == "3") {
+        // log response
+        this.log_responses();
+        // continue to next slide
+        exp.go();
+      } else {
+        // participant gave non-reasonable response --> show error message
+        $('.err').show();
+        this.log_responses();
+      }
+    },
+
+
+    // handle click on "Continue" button no correction
+    // button: function() {
+    //   this.radio = $("input[name='number']:checked").val();
+    //   this.strange = $("#check-strange:checked").val() === undefined ? 0 : 1;
+    //   if (this.radio) {
+    //     this.log_responses();
+    //     exp.go(); //use exp.go() if and only if there is no "present"ed data, ie no list of stimuli.
+    //     // _stream.apply(this); //use _stream.apply(this) if there is a list of "present" stimuli to rotate through
+    //   } else {
+    //     $('.err').show();
+    //   }
+    // },
+
+    // save response
+    log_responses: function() {
+      exp.data_trials.push({
+        "tgrep_id": "example2",
+        "slide_number_in_experiment": exp.phase, //exp.phase is a built-in trial number tracker
+        "response": this.radio,
+        "strangeSentence": this.strange,
+        "sentence": "",
+      });
+    } // end log responses
+  }); //end slide example 2
 
 
   slides.startExp = slide({
@@ -138,14 +207,19 @@ function make_slides(f) {
       this.generic = generic;
 
       var contexthtml = this.format_context(generic.PreceedingContext);
-      var entirehtml = "<font color=#FF0000> " + this.format_sentence(generic.Matrix) + " <b>" + this.format_sentence(generic.Question) + "</b>"
-      contexthtml = contexthtml + entirehtml
-      // exp.theParaphrase.value = generic.TheResponse
-      // exp.aParaphrase.value = generic.AResponse
-      // exp.allParaphrase.value = generic.AllResponse
+      var entirehtml = "<font color=#FF0000> " + this.format_sentence(generic.Matrix) + " <b>" + this.format_sentence(generic.Question) + "</b><br><br>"
+      var couldhtml = "<font color=#2E9AFE> " + this.generic.CouldParaphrase + "<br>"
+      var shouldhtml = "<font color=#2E9AFE> " + this.generic.ShouldParaphrase
+
+      contexthtml = contexthtml + entirehtml + couldhtml + shouldhtml
+
 
       $(".context").html(contexthtml)
-    }; 
+      // $(".context").html(shouldhtml)
+      // $(".context").html(shouldhtml)
+      $("input[name='number']:checked").prop("checked", false);
+      $("#check-strange").prop("checked", false);
+    },
 
     // speakers 1 and 2 
     format_context: function (context) {
@@ -197,7 +271,7 @@ function make_slides(f) {
       this.strange = $("#check-strange:checked").val() === undefined ? 0 : 1;
       if (this.radio) {
         this.log_responses();
-        exp.go(); //use exp.go() if and only if there is no "present"ed data, ie no list of stimuli.
+        _stream.apply(this) //use exp.go() if and only if there is no "present"ed data, ie no list of stimuli.
         // _stream.apply(this); //use _stream.apply(this) if there is a list of "present" stimuli to rotate through
       } else {
         $('.err').show();
@@ -207,12 +281,13 @@ function make_slides(f) {
     // save response
     log_responses: function() {
       exp.data_trials.push({
-        "id": this.stim.TGrep,
+        "tgrep_id": this.generic.TGrepID,
         // "sentence": this.stim.ButNotAllSentence,
         "slide_number_in_experiment": exp.phase, //exp.phase is a built-in trial number tracker
         "response": this.radio,
         "strangeSentence": this.strange
       });
+    }
   });
 
 
@@ -291,8 +366,8 @@ function init() {
     "bot",
     "i0",
     "instructions_slider",
-    // "example1",
-    // "example2",
+    "example1",
+    "example2",
     "startExp",
     "generateEntities",// This is where the test trials come in.
     "subj_info",
