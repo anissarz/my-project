@@ -82,12 +82,15 @@ function make_slides(f) {
     start: function () {
       // hide error message 
       $(".err").hide();
+
     },
     
     // this is executed when the participant clicks the "Continue button"
     button: function() {
       // read in the value of the selected radio button
       this.radio = $("input[name='number']:checked").val();
+
+
       // check whether the participant selected a reasonable value (i.e, 5, 6, or 7)
       if (this.radio == "5" || this.radio == "6" || this.radio == "7") {
         // log response
@@ -202,16 +205,15 @@ function make_slides(f) {
     present: exp.stimuli, // This the array generated from stimuli.js
     present_handle: function (stim) { // this function is called bascially on exp.stim (more or less)
       $(".err").hide();
+      $("#check-strange").prop("checked", false);
 
       var generic = stim;
       this.generic = generic;
 
       var contexthtml = this.format_context(generic.PreceedingContext);
-      var entirehtml = "<font color=#FF0000> " + this.format_sentence(generic.Matrix) + " <b>" + this.format_sentence(generic.Question) + "</b><br><br>"
-      var couldhtml = "<font color=#2E9AFE> " + this.generic.CouldParaphrase + "<br>"
-      var shouldhtml = "<font color=#2E9AFE> " + this.generic.ShouldParaphrase
+      var entirehtml = "<font color=#FF0000> " + this.format_sentence(generic.EntireSentence) + "<br>"
 
-      contexthtml = contexthtml + entirehtml + couldhtml + shouldhtml
+      contexthtml = contexthtml + entirehtml
 
 
       $(".context").html(contexthtml)
@@ -219,6 +221,8 @@ function make_slides(f) {
       // $(".context").html(shouldhtml)
       $("input[name='number']:checked").prop("checked", false);
       $("#check-strange").prop("checked", false);
+      document.getElementById("could").innerHTML = this.generic.CouldParaphrase
+      document.getElementById("should").innerHTML = this.generic.ShouldParaphrase
     },
 
     // speakers 1 and 2 
@@ -230,12 +234,22 @@ function make_slides(f) {
       contexthtml = contexthtml.replace(/speakerb(\d+)./g, "<br><b>Speaker #2: </b>");
       contexthtml = contexthtml.replace(/speakera./g, "<br><b>Speaker #1: </b>");
       contexthtml = contexthtml.replace(/speakerb./g, "<br><b>Speaker #2: </b>");
-      // remove the traces
+      
+      //remove *exp*
+      contexthtml = contexthtml.replace(/\*exp/g, "");
+      // remove traces 
       contexthtml = contexthtml.replace(/\*t*\**\-(\d+)/g, "");
+            //remove ?
+      contexthtml = contexthtml.replace(/\?(?=\*)/g, "");
       // remove random asterisks
       contexthtml = contexthtml.replace(/\*/g, "");
       // remove the random 0
       contexthtml = contexthtml.replace(/0/g, "");
+      //remove the ""
+      contexthtml = contexthtml.replace(/\"/g, "");
+      //trying to remove weird spaces
+      contexthtml = contexthtml.replace(/\s{2,}/g," ");
+
 
 
       // this just deals with the first instance of speaker
@@ -256,12 +270,15 @@ function make_slides(f) {
     },
 
     format_sentence: function (sentence) {
-      // remove the traces
-      entirehtml = sentence.replace(/\*t*\**\-(\d+)/g, "");
-      entirehtml = entirehtml.replace(/\*ich/g, "");
-      entirehtml = entirehtml.replace(/ich/g, "");
+      // remove the traces and the following whitespace
+      entirehtml = sentence.replace(/\s\*t*\**\-\d*/g, "");
+      // entirehtml = sentence.replace(/\-\d+/g, "");
+      entirehtml = entirehtml.replace(/\*ich\*\-\d/g, "");
       entirehtml = entirehtml.replace(/0/g, "");
+      entirehtml = entirehtml.replace(/\*exp\*\-\d/g, ""); //trying to get rid of *exp*
       entirehtml = entirehtml.replace(/\*/g, "");
+      entirehtml = entirehtml.replace(/\"/g, "");
+      entirehtml = entirehtml.replace(/\s+/g," ");
       return entirehtml
     },
 

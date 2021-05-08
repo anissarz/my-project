@@ -19,7 +19,8 @@ function generate_stim() {
         var rows = raw.split('\n');
  
         var data = [];
-        headings = rows[0].split('\t');
+        headings = rows[0].trim().split('\t'); // need to trim when adding column headings from excel
+        console.log(headings)
         var total = rows.length - 1;
 
         // Push every item from the text file into the array, split on the tab (or whatever split)

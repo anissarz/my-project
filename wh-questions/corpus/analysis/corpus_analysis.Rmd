@@ -72,7 +72,7 @@ View(df_which["Sentence"])
 ```
 
 ```{r, bring in the embedded verb}
-table(df_nonfin_emb$)
+table(df_nonfin_emb)
 
 
 # Make a single matrix verb column

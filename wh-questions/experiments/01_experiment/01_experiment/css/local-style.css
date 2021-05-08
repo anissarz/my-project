@@ -50,6 +50,11 @@
     color: red;
     font-size:22;
 }
+
+.originalSen {
+  color: #E7532B;
+}
+
 .row {
     padding-bottom: .5em;
 }
