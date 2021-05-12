@@ -225,10 +225,14 @@ function make_slides(f) {
       document.getElementById("should").innerHTML = this.generic.ShouldParaphrase
     },
 
+
     // speakers 1 and 2 
     format_context: function (context) {
       // remove all ### standing alone
       contexthtml = context.replace(/###/g, " ");
+
+      contexthtml = contexthtml.replace(/\sspeakera(\d+).\sspeakerb(\d+)./g, " ")
+      contexthtml = contexthtml.replace(/\sspeakerb(\d+).\sspeakera(\d+)./g, " ")
       // replace first three ## with Speaker 1
       contexthtml = contexthtml.replace(/speakera(\d+)./g, "<br><b>Speaker #1: </b>");
       contexthtml = contexthtml.replace(/speakerb(\d+)./g, "<br><b>Speaker #2: </b>");
@@ -238,10 +242,13 @@ function make_slides(f) {
       //remove *exp*
       contexthtml = contexthtml.replace(/\*exp/g, "");
       // remove traces 
-      contexthtml = contexthtml.replace(/\*t*\**\-(\d+)/g, "");
+      contexthtml = contexthtml.replace(/\s\*t*\**\-\d*/g, "");
             //remove ?
-      contexthtml = contexthtml.replace(/\?(?=\*)/g, "");
+      contexthtml = contexthtml.replace(/\s\*\?\*/g, "");
       // remove random asterisks
+
+      contexthtml = contexthtml.replace(/\*ich\*\-\d/g, "");
+
       contexthtml = contexthtml.replace(/\*/g, "");
       // remove the random 0
       contexthtml = contexthtml.replace(/0/g, "");
@@ -253,7 +260,7 @@ function make_slides(f) {
 
 
       // this just deals with the first instance of speaker
-      if (!contexthtml.startsWith("<br><b>Speaker #")) {
+      if (!contexthtml.startsWith(" <br><b>Speaker #")) {
         var ssi = contexthtml.indexOf("Speaker #");
         switch (contexthtml[ssi + "Speaker #".length]) {
           case "1":
@@ -269,13 +276,15 @@ function make_slides(f) {
       return contexthtml;
     },
 
+
+
     format_sentence: function (sentence) {
       // remove the traces and the following whitespace
       entirehtml = sentence.replace(/\s\*t*\**\-\d*/g, "");
       // entirehtml = sentence.replace(/\-\d+/g, "");
       entirehtml = entirehtml.replace(/\*ich\*\-\d/g, "");
       entirehtml = entirehtml.replace(/0/g, "");
-      entirehtml = entirehtml.replace(/\*exp\*\-\d/g, ""); //trying to get rid of *exp*
+      entirehtml = entirehtml.replace(/\*exp\*\-\d/g, "");
       entirehtml = entirehtml.replace(/\*/g, "");
       entirehtml = entirehtml.replace(/\"/g, "");
       entirehtml = entirehtml.replace(/\s+/g," ");

@@ -113,7 +113,7 @@
       At then end of each one, there will be a sentence in red text.
       <br><br>
       
-      After reading the conversation and the sentence in red, consider the two sentences in blue, one will contain the word 'could' and one will contain the word 'should.' Rate which sentence in blue best expresses the meaning in red. If both blue sentences seem to fit the meaning of the sentence in red, choose a number in the middle of the scale.
+      After reading the conversation and the sentence in red, consider the two sentences on either end of the scale. One will contain the word <b>could</b> and one will contain the word <b>should</b>. Rate which best expresses the meaning of the sentence in red. If both sentences seem like a good fit for the meaning of the sentence in red, choose a number in the middle of the scale.
   
     </p>
     <br><br>
@@ -126,22 +126,25 @@
       <h3>
         Example 1
       </h3>
-      <p class="originalSen"> 
-          I know who I have to talk to. 
+      <p align="left">
+          <small><b>Speaker #1</b>: I think you should talk to Eric, Maya, or Lindsay if you want help on your project.<br>
+          <b>Speaker #2</b>: Are any of them an expert on global warming? That's what my project topic is.<br>
+          <b>Speaker #1</b>: I think Maya is.</small>
+        </p>
+      <p class="originalSen" align="left"> 
+          <font color="black">  
+            <small><b>Speaker #2</b>: Ok, then
+          </font>  
+      I know <b>who I have to talk to</b>.</small> 
       </p>
-      <p class="targetSen">
-        I know who I <b>could</b> talk to.<br>
-        I know who I <b>should</b> talk to.
-        
-
-      </p>
+      
       <div class="instruction">
-        <i>Which sentence in blue best expresses the meaning of the sentence in red? If both sentences in blue seem like possible meanings, choose a number in the middle of the scale.</i>
+        <i>Which sentence best expresses the meaning of the sentence in red? If both sentences seem like possible meanings, choose a number in the middle of the scale.</i>
       </div>
       <table class="likertscale">
         <tr>
           <td>
-            could
+            I know who I <b>could</b> talk to.
           </td>
           <td>
             <input type="radio" name="number" value="1">
@@ -165,7 +168,7 @@
             <input type="radio" name="number" value="7">
           </td>
           <td>
-            should
+            I know who I <b>should</b> talk to. 
           </td>
         </tr>
         <tr>
@@ -200,7 +203,7 @@
       </div>
       <div class="err">
         <p>
-          In your rating, consider whether the sentence with 'should' or 'could' expresses the same thing as the red sentence. If both sentences seem like possible paraphrases of the sentence in red, choose a number in the middle of the scale.
+         In your rating, consider whether the sentence with <b>should</b> or <b>could</b> best expresses the meaning of the red sentence.
         </p>
       </div>
     </div>
@@ -210,20 +213,24 @@
       <h3>
         Example 2
       </h3>
-      <p class="originalSen">
-        I know who I'm able to talk to.
-      </p>
-      <p class="targetSen">
-        I know who I <b>could</b> talk to.<br> 
-        I know who I <b>should</b> talk to. 
+      <p align="left">
+          <small><b>Speaker #1</b>: During this investigation, there are some people you aren't allowed to talk to.<br>
+          <b>Speaker #2</b>: What do you mean? Like who?<br>
+          <b>Speaker #1</b>: Didn't you see the court papers on your desk?</small>
+        </p>
+      <p class="originalSen" align="left"> 
+          <font color="black">  
+            <small><b>Speaker #2</b>: Oh, ok, yes, I did see that. Don't worry.
+          </font>  
+      I know <b>who I'm able to talk to</b>.</small> 
       </p>
       <div class="instruction">
-        <i>Which sentence in blue best expresses the meaning of the sentence in red? If both sentences in blue seem like possible meanings, choose a number in the middle of the scale.</i>
+        <i>Which sentence best expresses the meaning of the sentence in red? If both sentences seem like possible meanings, choose a number in the middle of the scale.</i>
       </div>
       <table class="likertscale">
         <tr>
           <td>
-            could
+            I know who I <b>could</b> talk to.
           </td>
           <td>
             <input type="radio" name="number" value="1">
@@ -247,7 +254,7 @@
             <input type="radio" name="number" value="7">
           </td>
           <td>
-            should
+            I know who I <b>should</b> talk to. 
           </td>
         </tr>
         <tr>
@@ -283,7 +290,7 @@
       <div class="err">
         <br>
         <p>
-          In your rating, consider whether the sentence with 'should' or 'could' best expresses the meaning of the red sentence. If both sentences in blue seem like a possible meaning for the sentence in red, choose a number in the middle of the scale.
+          In your rating, consider whether the sentence with <b>should</b> or <b>could</b> best expresses the meaning of the red sentence.
         </p>
       </div>
     </div>
@@ -292,14 +299,12 @@
 
   <div class="slide" id="startExp">
     <br><br>
-    <p id="instruct-text" align="left">Great! Now we can start the real experiment. <br><br> You will now read 20
-      conversations. You won't always need to read the whole conversation to decide what the speaker means.
-      <br><br>Sometimes, the sentences below the dialogue will sound strange. In this case, make your best guess about which sentence in blue captures what the
-      speaker meant.
+    <p id="instruct-text" align="left">Great! Now we can start the real experiment. <br><br> You will now read 20 conversations. You won't always need to read the whole conversation to decide what the speaker means. If both sentences seem like possible meanings, choose a rating in the middle of the scale. 
+      <br><br>Sometimes, both the sentences on the scale will sound strange. In this case, make your best guess about which one best captures what you think the speaker meant, and then check the box 'Both sentences sound strange.'
       <br><br> 
       
-      Note: these are transcripts of real phone conversations so sometimes the text will be a little jumbled. 
-      CLICK SOMETHING?
+      Note: these are transcripts of real phone conversations so sometimes the text will be a little jumbled. Do your best and remember that you will have an opportunity to make comments at the end of the experiment.
+    
     </p>
     <br><br>
     <div align=center><button class=continueButton onclick=_s.button()>Continue</button></div>
@@ -367,7 +372,7 @@
       </table><br>
         <br>
       <br>
-      Both sentences sounds strange: <input type="checkbox" id="check-strange"><br>
+      Both sentences sound strange: <input type="checkbox" id="check-strange"><br>
       <br>
       <div class="center">
         <button class="continueButton" onclick="_s.button()">Continue</button>
