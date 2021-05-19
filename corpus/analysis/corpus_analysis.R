@@ -25,7 +25,4 @@ View(n)
 View(d[d["Item_ID"] == "33015:37"])
 
 
-(TOP (S (NP-SBJ (DT That)) 
-        (VP (BES 's) (NP-PRD (NP (CD one)) 
-            (PP (IN of) (NP (NP (PRP$ my) (JJ favorite) (NNS things))
-            (SBAR (WHNP-1 (-NONE- 0)) (S (NP-SBJ (-NONE- *)) (EDITED (RM (-DFL- \[)) (VP-UNF (TO to)) (, ,) (IP (-DFL- \+))) (VP (TO to) (RS (-DFL- \])) (VP (VB serve) (NP (-NONE- *T*-1)))))))))) (. .) (-DFL- E_S)))
+

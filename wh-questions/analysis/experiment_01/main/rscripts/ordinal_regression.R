@@ -43,6 +43,21 @@ summary_table <- cbind(summary_table, "p value" = round(pval,3))
 summary_table
 
 
+#Can we predict "strange sentence" given the status of the Prejacent_specific_gen (specific) and the context (one)?
+model_fit_Neg <- polr(strangeSentence~prejacent_code + Context_many_one, data = test, Hess=TRUE)
+
+#What are the log odds of getting ratings 1-7 if the prejacent was specific and the context provided many ways of getting the prejacent done?
+#I predict 'could' readings here
+model_fit_Neg <- polr(response~prejacent_code + Context_many_one, data = test, Hess=TRUE)
+
+
+
+
+
+
+
+
+
 
 
 
